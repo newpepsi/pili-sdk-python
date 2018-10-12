@@ -3,7 +3,7 @@ import hashlib
 import json
 import time
 import pili.api as api
-from utils import urlsafe_base64_encode
+from .utils import urlsafe_base64_encode
 
 
 class RoomClient(object):

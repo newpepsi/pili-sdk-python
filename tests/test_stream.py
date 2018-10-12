@@ -69,7 +69,7 @@ class TestStreamCases(unittest.TestCase):
         self.assertTrue(ret["persistentID"])
         try:
             stream.save_as(now - 20, now, format="mp4", pipeline="notexist")
-        except Exception, e:
+        except Exception as e:
             self.assertEqual(str(e), "no such pipeline")
 
     # 这个测试需要维持推流test1

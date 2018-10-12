@@ -2,7 +2,11 @@
 Auth provide class Auth for authentication account. You can use decorator
 auth_interface to create a function with auto generated authentication.
 """
-from urlparse import urlparse
+
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from .utils import send_and_decode, __hmac_sha1__
 
 import pili.conf as conf
@@ -19,6 +23,7 @@ class Auth(object):
     """
     class Auth store the access_key and secret_key for authentication.
     """
+
     def __init__(self, access_key, secret_key):
         if not (access_key and secret_key):
             raise ValueError('invalid key')
@@ -36,13 +41,14 @@ def auth_interface(method):
     """
     decorator takes func(**args) return req and change it to
     func(auth, **args) return json result.
-
+    :param method
     Args:
         func(**args) -> Request
 
     Returns:
         func(**args) -> dict (decoded json)
     """
+
     def authed(auth, **args):
         """
         send request and decode response. Return the result in python format.
@@ -62,4 +68,5 @@ def auth_interface(method):
         req.add_header('Authorization', auth.auth_interface_str(raw_str))
         req.add_header('User-Agent', conf.API_USERAGENT)
         return send_and_decode(req)
+
     return authed

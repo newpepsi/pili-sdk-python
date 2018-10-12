@@ -1,5 +1,6 @@
 from .auth import auth_interface
 import pili.conf as conf
+# noinspection PyCompatibility
 from urllib2 import Request
 import json
 import base64
